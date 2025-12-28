@@ -1,0 +1,146 @@
+{
+    "version": "1.2.14",
+    "language": "en",
+    "DeveloperMode": false,
+    "autoCreateDB": true,
+    "allowInbox": false,
+    "autoClean": true,
+    "adminOnly": false,
+    "encryptSt": true,
+    "removeSt": false,
+    "DATABASE": {
+        "sqlite": {
+            "storage": "data.sqlite"
+        }
+    },
+    "commandDisabled": [
+        ""
+    ],
+    "eventDisabled": [
+        ""
+    ],
+    "BOTNAME": "♡┋Տhokhiㅤᥫ᭡",
+    "PREFIX": "&",
+    "ADMINBOT": [
+        "100080510397081",
+        "61581817361921"
+    ],
+    "OWNER": [
+        "100080510397081",
+        "61581817361921"
+    ],
+    "NDH": [
+        "61581817361921"
+    ],
+    "AuthorEncrypted": {
+        "Name": "U2FsdGVkX1+6WUObBNS/U4x2X2gEHe9oq3/JrkJszgE=",
+        "Gender": "U2FsdGVkX1/uqm9iUxudLkdWNyKEoxHeHMq4NX/h1WU=",
+        "Religion": "U2FsdGVkX18R4dCULlCxEx1eOkHS9OYVqtXEEjKFJos=",
+        "ReletionalStatus": "U2FsdGVkX1943HqXq9CZDJ1zmUx9oTfY1N05nHeOQ7w=",
+        "Age": "U2FsdGVkX1/YZRgyGAorOu8ZHa8okC9XoD7L+jWA7Xc=",
+        "Location": "U2FsdGVkX19fgxFfFzfqT5vFOgUFA3WgNk9rpuJUZus=",
+        "Github": "U2FsdGVkX19bVv/AlZAbGFpU3jYErjS7uei03V//hcuOtpWfRAJc4NgQ/qGqCnqw",
+        "Facebook": "U2FsdGVkX1/3kZthEcM7YnkSSUN8cEvrnYK6cQ8OusL30VEdd2R0vgHanPDIMyHYclevLU/EMDcNA7WNKJCxTA==",
+        "ID": "U2FsdGVkX1/tdRmc/CkwxZEHGnWo4jfm7U3NUuTq3Bg=",
+        "Image": "U2FsdGVkX1+i3qUwLT/YjL6uEAVSQpE0kfQI7XGVXmfSy9x1z3yNF8B0Y1FJ//NMVPswOeDRhvilI3dWScONX/5zvzLFc4Q1UiVyU6DpgK4="
+    },
+    "DESIGN": {
+        "Title": "SUJON-BOSS",
+        "Theme": "Blue",
+        "Admin": "SUJON",
+        "Setup": {
+            "Info": "Apnar custom terminal Titlebar design",
+            "Themes": "Aqua, Fiery, Blue, Orange, Pink, Red, Retro, Summer, Ghost, Rainbow, Hacker"
+        }
+    },
+    "EMAIL": "",
+    "PASSWORD": "",
+    "OTPKEY": "",
+    "APPSTATEPATH": "appstate.json",
+    "BELAAI_API_URL": "http://localhost:3000",
+    "DEL_FUNCTION": false,
+    "ADD_FUNCTION": true,
+    "FCAOption": {
+        "forceLogin": true,
+        "listenEvents": true,
+        "pauseLog": true,
+        "logLevel": "error",
+        "selfListen": false,
+        "online": true,
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/604.1",
+        "byPassRegion": "PNB"
+    },
+    "notiGroup": true,
+    "NOTIFICATION": true,
+    "AUTO_UPDATE": true,
+    "ANTI_SHUTDOWN": true,
+    "AUTO_RESTART": {
+        "enable": false,
+        "time": 24
+    },
+    "AUTO_BACKUP": true,
+    "reactUnsend": "😡",
+    "AUTO_READ_MESSAGE": true,
+    "AUTO_TYPING": false,
+    "AUTO_MARK_DELIVERY": true,
+    "MAX_PROCESS_COMMAND": 10,
+    "MAX_PROCESS_EVENT": 5,
+    "MAX_PROCESS_REPLY": 3,
+    "MAX_PROCESS_REACTION": 5,
+    "CLEAN_CACHE_INTERVAL": 60,
+    "ANTI_SPAM": {
+        "enable": true,
+        "maxCommandPerMinute": 10,
+        "banTime": 300
+    },
+    "job": {
+        "cooldownTime": 5000
+    },
+    "fish": {
+        "cooldownTime": 1000000
+    },
+    "work": {
+        "cooldownTime": 1200000
+    },
+    "help": {
+        "autoUnsend": true,
+        "delayUnsend": 300
+    },
+    "helpall": {
+        "autoUnsend": true,
+        "delayUnsend": 20
+    },
+    "math": {
+        "WOLFRAM": "T8J8YV-H265UQ762K"
+    },
+    "weather": {
+        "OPEN_WEATHER": "b7f1db5959a1f5b2a079912b03f0cd96"
+    },
+    "adminUpdate": {
+        "autoUnsend": true,
+        "sendNoti": true,
+        "timeToUnsend": 10
+    },
+    "adminNoti": {
+        "autoUnsend": true,
+        "sendNoti": true,
+        "timeToUnsend": 10
+    },
+    "sing": {
+        "YOUTUBE_API": "AIzaSyCqox-KXEwDncsuo2HIpE0MF8J7ATln5Vc",
+        "SOUNDCLOUD_API": "M4TSyS6eV0AcMynXkA3qQASGcOFQTWub"
+    },
+    "video": {
+        "YOUTUBE_API": "AIzaSyDEE1-zZSRVI8lTaQOVsIAQFgL-_BJKvhk"
+    },
+    "audio": {
+        "YOUTUBE_API": "AIzaSyDEE1-zZSRVI8lTaQOVsIAQFgL-_BJKvhk"
+    },
+    "menu": {
+        "autoUnsend": true,
+        "delayUnsend": 60
+    },
+    "god": {
+        "enable": true
+    }
+}

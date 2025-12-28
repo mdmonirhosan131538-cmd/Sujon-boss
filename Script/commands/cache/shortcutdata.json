@@ -1,0 +1,47 @@
+[
+    {
+        "threadID": "30712735231673626",
+        "shortcuts": [
+            {
+                "id": "8cfKutA9Km",
+                "input": "/bn",
+                "output": "Sujon"
+            },
+            {
+                "id": "Kw4BGmAAGf",
+                "input": "Ami ki pagol",
+                "output": "Ho toi pagol"
+            }
+        ]
+    },
+    {
+        "threadID": "9959372150838185",
+        "shortcuts": [
+            {
+                "id": "oMWuom8wzw",
+                "input": "Kasim Vai koi",
+                "output": "Calle ase dekho"
+            },
+            {
+                "id": "wrwlnCw4rv",
+                "input": "Lima koi",
+                "output": "Cipai mone hoi"
+            },
+            {
+                "id": "c4qlzkkzBo",
+                "input": "Jannat ke",
+                "output": "Sujoner Cesra bow"
+            }
+        ]
+    },
+    {
+        "threadID": "2133621990805570",
+        "shortcuts": [
+            {
+                "id": "kkk14kktKk",
+                "input": "Apu",
+                "output": "Hmm bol"
+            }
+        ]
+    }
+]
