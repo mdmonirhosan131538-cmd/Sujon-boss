@@ -10,7 +10,7 @@ module.exports.config = {
   usePrefix: true // prefix সাপোর্ট থাকবে
 };
 
-const repoLink = "🔗 GitHub Repo Link:\n\nhttps://github.com/sujon-boss/SUJON-CHAT-BOT-V1.git";
+const repoLink = "🔗 GitHub Repo Link:\n\nhttps://github.com/mdmonirhosan131538-cmd/Sujon-boss.git";
 
 // 🔹 noprefix কাজ করার জন্য
 module.exports.handleEvent = async function ({ api, event }) {
