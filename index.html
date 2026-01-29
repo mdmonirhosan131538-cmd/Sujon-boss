@@ -1,57 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sujon Boss Bot</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
-    .logo {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 4px solid #ff9800;
-      margin-bottom: 20px;
-      box-shadow: 0 0 25px rgba(255, 152, 0, 0.7);
-    }
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    }
-    p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-    .status {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: 2px solid #4caf50;
-      display: inline-block;
-      border-radius: 10px;
-      background: rgba(76, 175, 80, 0.1);
-      box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sujon Boss Bot • VIP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg1:#050608;
+  --bg2:#1f2933;
+  --card:rgba(255,255,255,0.08);
+  --text:#ffffff;
+}
+
+body.light{
+  --bg1:#f4f6f8;
+  --bg2:#e0e6ed;
+  --card:rgba(255,255,255,0.9);
+  --text:#111;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  background:radial-gradient(circle at top,var(--bg2),var(--bg1));
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+.container{
+  width:90%;
+  max-width:430px;
+  padding:40px 35px;
+  text-align:center;
+  border-radius:22px;
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,215,0,.25);
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+}
+
+.logo{
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  border:4px solid gold;
+  margin-bottom:20px;
+  box-shadow:0 0 40px rgba(255,215,0,.9);
+}
+
+h1{
+  font-size:2.3rem;
+  background:linear-gradient(90deg,gold,#ff9800);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+p{
+  margin:10px 0 20px;
+  opacity:.9;
+}
+
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 24px;
+  border-radius:30px;
+  font-weight:600;
+  color:#4caf50;
+  background:rgba(76,175,80,.15);
+  box-shadow:0 0 20px rgba(76,175,80,.7);
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  background:#4caf50;
+  border-radius:50%;
+  animation:pulse 1.4s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.6);opacity:.4}
+  100%{transform:scale(1);opacity:1}
+}
+
+.uptime{
+  margin-top:15px;
+  font-size:.95rem;
+}
+
+.buttons{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.btn{
+  padding:14px;
+  border-radius:30px;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.messenger{
+  background:linear-gradient(90deg,#006aff,#00c6ff);
+  color:#fff;
+}
+
+.admin{
+  background:linear-gradient(90deg,gold,#ff9800);
+  color:#000;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.toggles{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+.toggle{
+  padding:10px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  font-size:.9rem;
+  font-weight:600;
+  border:1px solid rgba(255,215,0,.4);
+  background:rgba(255,215,0,.15);
+}
+
+.footer{
+  margin-top:20px;
+  font-size:.8rem;
+  opacity:.6;
+}
+</style>
 </head>
+
 <body>
-  <!-- এখানে তোমার কাস্টম লোগো ইউআরএল বসাও -->
-  <img src="https://i.imgur.com/7zPmil6.jpeg" alt="Sujon Boss Logo" class="logo">
 
-  <h1>🔥 Sujon Boss Bot is Running ✅</h1>
-  <p>Your Messenger bot server is alive and connected!</p>
+<canvas id="particles"></canvas>
 
-  <div class="status">🟢 STATUS: ONLINE</div>
+<!-- BACKGROUND SOUND -->
+<audio id="bgm" loop>
+  <source src="YOUR_SOUND_URL.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <img src="https://i.imgur.com/7zPmil6.jpeg" class="logo">
+
+  <h1>SUJON-BOSS</h1>
+  <p> Messenger Bot • VIP Hosting</p>
+
+  <div class="status">
+    <div class="dot"></div> ONLINE
+  </div>
+
+  <div class="uptime">
+    ⏱ Uptime: <span id="time">0h 0m 0s</span>
+  </div>
+
+  <div class="buttons">
+    <a href="https://github.com/Sujon-boss86/Sujon-boss.git" class="btn messenger">
+      💬 Open messenger github Fork
+    </a>
+
+    <a href="https://www.facebook.com/profile.php?id=100080510397081" class="btn admin">
+      👑 Contact Admin
+    </a>
+  </div>
+
+  <div class="toggles">
+    <div class="toggle" onclick="toggleSound()">🎵 Sound</div>
+    <div class="toggle" onclick="toggleTheme()">🌙 Theme</div>
+  </div>
+
+  <div class="footer">© 2026 • Powered by Sujon-Boss</div>
+</div>
+
+<script>
+/* UPTIME */
+let sec=0;
+setInterval(()=>{
+  sec++;
+  let h=Math.floor(sec/3600);
+  let m=Math.floor((sec%3600)/60);
+  let s=sec%60;
+  time.innerText=`${h}h ${m}m ${s}s`;
+},1000);
+
+/* SOUND */
+let playing=false;
+function toggleSound(){
+  const a=document.getElementById("bgm");
+  playing ? a.pause() : a.play();
+  playing=!playing;
+}
+
+/* THEME */
+function toggleTheme(){
+  document.body.classList.toggle("light");
+}
+
+/* STAR BACKGROUND */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+resize();
+window.onresize=resize;
+
+let stars=[];
+for(let i=0;i<200;i++){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*1.5,
+    a:Math.random(),
+    da:Math.random()*0.02
+  });
+}
+
+(function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.fillStyle=`rgba(255,255,255,${s.a})`;
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.a+=s.da;
+    if(s.a<=0||s.a>=1) s.da=-s.da;
+  });
+  requestAnimationframe(animate);
+})();
+</script>
+
 </body>
 </html>
