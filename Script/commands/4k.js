@@ -1,63 +1,87 @@
 const axios = require('axios');
-const fs = require('fs');
+const fs = require('fs-extra');
+const path = require('path');
 
-const xyz = "ArYANAHMEDRUDRO";
+module.exports.config = {
+    name: "4k",
+    version: "1.0",
+    credits: "rX by Sujon",
+    description: "Upscale image to 4K using API",
+    usages: "!4k (reply to a photo)",
+    commandCategory: "AI",
+    cooldowns: 5
+};
 
-module.exports = {
- config: {
- name: "4k",
- version: "1.0.0",
- hasPermssion: 0,
- credits: "—͟͟͞͞𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️ × ArYAN",
- premium: false,
- description: "Enhance Photo - Image Generator",
- commandCategory: "Image Editing Tools",
- usages: "Reply to an image or provide image URL",
- cooldowns: 5,
- dependencies: {
- path: "",
- 'fs-extra': ""
- }
- },
+const API_ENDPOINT = "https://free-goat-api.onrender.com/4k";
 
- run: async function({ api, event, args }) {
- const tempImagePath = __dirname + '/cache/enhanced_image.jpg';
- const { threadID, messageID } = event;
+function extractImageUrl(event) {
+    if (event.messageReply && event.messageReply.attachments?.length > 0) {
+        const img = event.messageReply.attachments.find(
+            a => a.type === "photo" || a.type === "image"
+        );
+        if (img?.url) return img.url;
+    }
+    return null;
+}
 
- const imageUrl = event.messageReply ? 
- event.messageReply.attachments[0].url : 
- args.join(' ');
+module.exports.run = async function ({ api, event, args }) {
 
- if (!imageUrl) {
- api.sendMessage("Please reply to an image or provide an image URL", threadID, messageID);
- return;
- }
+    const imageUrl = extractImageUrl(event);
 
- try {
- const processingMsg = await api.sendMessage("𝐏𝐥𝐞𝐚𝐬𝐞 𝐖𝐚𝐢𝐭 𝐁𝐚𝐛𝐲...😘", threadID);
+    if (!imageUrl)
+        return api.sendMessage("❌ Please reply to an image.", event.threadID, event.messageID);
 
- const apiUrl = `https://aryan-xyz-upscale-api-phi.vercel.app/api/upscale-image?imageUrl=${encodeURIComponent(imageUrl)}&apikey=${xyz}`;
+    api.setMessageReaction("⏳", event.messageID, () => {}, true);
 
- const enhancementResponse = await axios.get(apiUrl);
- const enhancedImageUrl = enhancementResponse.data?.resultImageUrl;
+    let tempFile;
 
- if (!enhancedImageUrl) {
- throw new Error("Failed to get enhanced image URL.");
- }
+    try {
+        const fullApiUrl = `${API_ENDPOINT}?url=${encodeURIComponent(imageUrl)}`;
 
- const enhancedImage = (await axios.get(enhancedImageUrl, { responseType: 'arraybuffer' })).data;
+        const apiRes = await axios.get(fullApiUrl);
+        const data = apiRes.data;
 
- fs.writeFileSync(tempImagePath, Buffer.from(enhancedImage, 'binary'));
+        if (!data.image)
+            throw new Error("API did not return image URL");
 
- api.sendMessage({
- body: "✅ 𝐈𝐦𝐚𝐠𝐞 𝐆𝐞𝐧𝐞𝐫𝐚𝐭𝐞𝐝 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲!",
- attachment: fs.createReadStream(tempImagePath)
- }, threadID, () => fs.unlinkSync(tempImagePath), messageID);
+        const finalUrl = data.image;
 
- api.unsendMessage(processingMsg.messageID);
+        const imgStream = await axios.get(finalUrl, { responseType: "stream" });
 
- } catch (error) {
- api.sendMessage(`❌ Error`, threadID, messageID);
- }
- }
+        const cache = path.join(__dirname, "/cache");
+        if (!fs.existsSync(cache)) fs.mkdirSync(cache);
+
+        tempFile = path.join(cache, `4k_edit_${Date.now()}.jpg`);
+
+        const writer = fs.createWriteStream(tempFile);
+        imgStream.data.pipe(writer);
+
+        await new Promise((resolve, reject) => {
+            writer.on("finish", resolve);
+            writer.on("error", reject);
+        });
+
+        api.setMessageReaction("✅", event.messageID, () => {}, true);
+
+        return api.sendMessage(
+            {
+                body: `> 🎀 𝐃𝐨𝐧𝐞 𝐛𝐚𝐛𝐲`,
+                attachment: fs.createReadStream(tempFile)
+            },
+            event.threadID,
+            () => fs.unlinkSync(tempFile),
+            event.messageID
+        );
+
+    } catch (err) {
+        console.log("4K UPSCALE ERROR:", err);
+
+        api.setMessageReaction("❌", event.messageID, () => {}, true);
+
+        return api.sendMessage(
+            `❌ Error: ${err.message || "Something went wrong."}`,
+            event.threadID,
+            event.messageID
+        );
+    }
 };
